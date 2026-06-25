@@ -7,33 +7,28 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, sans-serif; background: #F0F4F8; color: #111; }
-
   .header { background: #104987; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .brand { font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; font-size: 22px; color: #FFD600; letter-spacing: 1px; flex-shrink: 0; }
   .header-site { text-align: right; min-width: 0; }
   .header-site .client { font-size: 12px; font-weight: 700; color: #fff; }
   .header-site .site { font-size: 10px; color: #AAC4E0; line-height: 1.4; word-break: keep-all; }
-
   .badge-bar { background: #fff; border-bottom: 2px solid #E0E8F0; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
   .badge-row { display: flex; gap: 8px; align-items: center; }
   .badge { font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; font-size: 14px; padding: 5px 12px; border-radius: 4px; line-height: 1; }
   .badge-floor { background: #FFD600; color: #000; }
-  .badge-zone  { background: #104987; color: #FFD600; }
+  .badge-zone { background: #104987; color: #FFD600; }
   .badge-range { background: #fff; color: #D0021B; border: 2px solid #D0021B; font-size: 13px; }
   .date-block { text-align: right; }
   .date-label { font-size: 9px; color: #bbb; font-weight: 400; display: block; }
   .date-value { font-size: 10px; color: #bbb; font-weight: 300; display: block; }
-
   .hint-banner { background: #FFF8DC; border-left: 4px solid #FFD600; padding: 9px 14px; font-size: 13px; color: #555; }
   .hint-banner strong { color: #104987; }
-
   .drawing-section { margin: 14px; border: 2px solid #104987; border-radius: 4px; overflow: hidden; background: #fff; }
   .drawing-header { background: #104987; padding: 8px 14px; }
   .drawing-header span { font-size: 12px; font-weight: 700; color: #fff; }
   .drawing-img-wrap { overflow: auto; -webkit-overflow-scrolling: touch; background: #f8f8f8; min-height: 200px; display: flex; align-items: center; justify-content: center; }
   .drawing-img-wrap img { width: 100%; height: auto; display: block; touch-action: pan-x pan-y pinch-zoom; }
   .img-loading { padding: 40px; text-align: center; color: #aaa; font-size: 13px; }
-
   .promo-section { margin: 0 14px 14px; }
   .promo-label { font-size: 12px; font-weight: 900; color: #104987; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; border-bottom: 2px solid #FFD600; padding-bottom: 4px; display: inline-block; }
   .promo-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
@@ -41,15 +36,12 @@
   .promo-card svg { display: block; margin: 0 auto 4px; }
   .promo-card .ct { font-size: 12px; font-weight: 700; color: #104987; display: block; margin-bottom: 3px; margin-top: 4px; }
   .promo-card .cd { font-size: 11px; color: #777; line-height: 1.5; }
-
   .promo-banner { background: #104987; border-radius: 4px; padding: 14px 16px; display: flex; align-items: center; justify-content: flex-end; }
   .promo-banner .br { text-align: right; }
   .promo-banner .br .corp { font-size: 12px; font-weight: 700; color: #fff; display: block; }
   .promo-banner .br .tel { font-size: 13px; font-weight: 700; color: #fff; display: block; margin-top: 3px; }
-
   .loading { padding: 60px 20px; text-align: center; color: #888; font-size: 14px; }
   .error-box { margin: 30px 14px; background: #fff0f0; border: 2px solid #D0021B; border-radius: 4px; padding: 24px; text-align: center; color: #D0021B; font-weight: 700; font-size: 15px; display: none; }
-
   .footer { background: #1a1a1a; padding: 14px 16px; text-align: center; margin-top: 4px; }
   .footer p { font-size: 10px; color: #666; line-height: 1.8; }
   .footer strong { color: #AAC4E0; }
@@ -73,7 +65,7 @@
   <div class="badge-bar">
     <div class="badge-row">
       <span class="badge badge-floor" id="val-floor"></span>
-      <span class="badge badge-zone"  id="val-zone"></span>
+      <span class="badge badge-zone" id="val-zone"></span>
       <span class="badge badge-range" id="val-range"></span>
     </div>
     <div class="date-block">
@@ -160,7 +152,6 @@
         <span class="cd">제작부터 납품까지 일괄 서비스</span>
       </div>
     </div>
-
     <div class="promo-banner">
       <div class="br">
         <span class="corp">(주) 도시씨앤디</span>
@@ -194,14 +185,17 @@ async function loadData() {
     const text = await res.text();
     const rows = parseCSV(text);
     const data = rows.slice(1);
-    const row = data.find(r => r[0].trim() === zoneId.trim());
+    // id는 L컬럼 = index 11
+    const row = data.find(r => r[11].trim() === zoneId.trim());
     if (!row) { showError(`ID "${zoneId}" 를 시트에서 찾을 수 없습니다.`); return; }
     const d = {
+      project: row[0],
       floor:   row[1],
       floorKo: row[2],
       zone:    row[3],
       rangeS:  row[4],
       rangeE:  row[5],
+      spec:    row[6],
       imgId:   row[7],
       site:    row[8],
       client:  row[9],
@@ -224,7 +218,7 @@ function loadImage(imgId) {
   let idx = 0;
   function tryNext() {
     if (idx >= urls.length) {
-      wrap.innerHTML = '<p style="padding:40px;text-align:center;color:#aaa">도면 이미지를 불러올 수 없습니다.<br/>구글 드라이브 공유 설정을 확인하세요.</p>';
+      wrap.innerHTML = '<p style="padding:40px;text-align:center;color:#aaa">도면 이미지를 불러올 수 없습니다.</p>';
       return;
     }
     const img = new Image();

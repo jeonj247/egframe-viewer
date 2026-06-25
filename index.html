@@ -173,6 +173,11 @@
 const SHEET_ID = '1N_xNNqQEnE3IeWBcA_kxCGvdMxQPOJ2KUu8httQdsp0';
 const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=시트1`;
 
+// 컬럼 인덱스 (0부터 시작)
+// A=0:id, B=1:프로젝트, C=2:층, D=3:층_한글, E=4:ZONE
+// F=5:RANGE_시작, G=6:RANGE_끝, H=7:규격, I=8:JPG_ID
+// J=9:현장, K=10:계약사, L=11:도면기준일
+
 function getParam(name) {
   return new URL(window.location.href).searchParams.get(name);
 }
@@ -185,21 +190,18 @@ async function loadData() {
     const text = await res.text();
     const rows = parseCSV(text);
     const data = rows.slice(1);
-    // id는 L컬럼 = index 11
-    const row = data.find(r => r[11].trim() === zoneId.trim());
+    const row = data.find(r => r[0].trim() === zoneId.trim());
     if (!row) { showError(`ID "${zoneId}" 를 시트에서 찾을 수 없습니다.`); return; }
     const d = {
-      project: row[0],
-      floor:   row[1],
-      floorKo: row[2],
-      zone:    row[3],
-      rangeS:  row[4],
-      rangeE:  row[5],
-      spec:    row[6],
-      imgId:   row[7],
-      site:    row[8],
-      client:  row[9],
-      date:    row[10],
+      floor:   row[2],
+      floorKo: row[3],
+      zone:    row[4],
+      rangeS:  row[5],
+      rangeE:  row[6],
+      imgId:   row[8],
+      site:    row[9],
+      client:  row[10],
+      date:    row[11],
     };
     render(d);
   } catch(e) {

@@ -14,6 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
   }
   .header-brand {
     font-family: 'Arial Black', Arial, sans-serif;
@@ -21,10 +22,20 @@
     font-size: 22px;
     color: #FFD600;
     letter-spacing: 1px;
+    flex-shrink: 0;
   }
-  .header-site { text-align: right; }
-  .header-site .client { font-size: 12px; font-weight: 700; color: #fff; }
-  .header-site .site   { font-size: 10px; color: #AAC4E0; }
+  .header-site { text-align: right; min-width: 0; }
+  .header-site .client {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .header-site .site {
+    font-size: 10px;
+    color: #AAC4E0;
+    line-height: 1.4;
+    word-break: keep-all;
+  }
 
   .badge-bar {
     background: #fff;
@@ -33,7 +44,6 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    flex-wrap: wrap;
   }
   .badge {
     font-family: 'Arial Black', Arial, sans-serif;
@@ -50,13 +60,6 @@
     color: #D0021B;
     border: 2px solid #D0021B;
     font-size: 13px;
-  }
-  .badge-spec  {
-    margin-left: auto;
-    background: #fff;
-    color: #104987;
-    border: 2px solid #104987;
-    font-size: 12px;
   }
 
   .hint-banner {
@@ -78,57 +81,22 @@
   .drawing-header {
     background: #104987;
     padding: 8px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
-  .drawing-header span { font-size: 12px; font-weight: 700; color: #fff; }
-  .drawing-header .zh  { font-size: 11px; color: #AAC4E0; }
-  .drawing-section iframe {
+  .drawing-header span {
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .drawing-img-wrap {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #f8f8f8;
+  }
+  .drawing-img-wrap img {
     width: 100%;
-    height: 420px;
-    border: none;
+    height: auto;
     display: block;
-  }
-
-  .info-section {
-    margin: 0 14px 14px;
-    background: #fff;
-    border: 1.5px solid #D0D8E4;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .info-title {
-    background: #F4F7FB;
-    border-bottom: 1.5px solid #D0D8E4;
-    padding: 8px 14px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #104987;
-  }
-  .info-row {
-    display: flex;
-    border-bottom: 1px solid #EEF2F7;
-    min-height: 40px;
-    align-items: center;
-  }
-  .info-row:last-child { border-bottom: none; }
-  .info-label {
-    width: 90px;
-    min-width: 90px;
-    padding: 9px 14px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #104987;
-    background: #F9FBFD;
-    border-right: 1px solid #EEF2F7;
-  }
-  .info-value { padding: 9px 14px; font-size: 13px; color: #222; flex: 1; }
-  .info-value.hl {
-    font-family: 'Arial Black', Arial, sans-serif;
-    font-weight: 900;
-    color: #D0021B;
-    font-size: 15px;
+    touch-action: pan-x pan-y pinch-zoom;
   }
 
   .promo-section { margin: 0 14px 14px; }
@@ -219,46 +187,19 @@
     <span class="badge badge-floor" id="val-floor"></span>
     <span class="badge badge-zone"  id="val-zone"></span>
     <span class="badge badge-range" id="val-range"></span>
-    <span class="badge badge-spec"  id="val-spec"></span>
   </div>
 
   <div class="hint-banner">
-    📍 <strong id="val-hint-zone"></strong> 구간 도면입니다 &nbsp;·&nbsp; 핀치로 확대 가능
+    📍 <strong id="val-hint-zone"></strong> 구간 도면입니다
   </div>
 
   <div class="drawing-section">
     <div class="drawing-header">
-      <span id="val-drawing-title"></span>
-      <span class="zh">pinch to zoom</span>
+      <span>EG-FRAME 층별상세배치도</span>
     </div>
-    <iframe id="val-iframe" src="" allow="autoplay" loading="lazy"></iframe>
-  </div>
-
-  <div class="info-section">
-    <div class="info-title">구간 정보</div>
-    <div class="info-row">
-      <div class="info-label">현장</div>
-      <div class="info-value" id="val-info-site"></div>
-    </div>
-    <div class="info-row">
-      <div class="info-label">층</div>
-      <div class="info-value" id="val-info-floor"></div>
-    </div>
-    <div class="info-row">
-      <div class="info-label">ZONE</div>
-      <div class="info-value hl" id="val-info-zone"></div>
-    </div>
-    <div class="info-row">
-      <div class="info-label">부재 범위</div>
-      <div class="info-value" id="val-info-range"></div>
-    </div>
-    <div class="info-row">
-      <div class="info-label">규격</div>
-      <div class="info-value" id="val-info-spec"></div>
-    </div>
-    <div class="info-row">
-      <div class="info-label">도면기준일</div>
-      <div class="info-value" id="val-info-date"></div>
+    <div class="drawing-img-wrap">
+      <img id="val-img" src="" alt="EG-FRAME 배치도"
+        onerror="this.parentElement.innerHTML='<p style=padding:40px;text-align:center;color:#aaa>도면 이미지를 불러올 수 없습니다</p>'"/>
     </div>
   </div>
 
@@ -332,23 +273,20 @@ async function loadData() {
       showError(`ID "${zoneId}" 에 해당하는 구간을 시트에서 찾을 수 없습니다.`);
       return;
     }
-    // 컬럼: id, 층, 층_한글, ZONE, RANGE_시작, RANGE_끝, 규격, PDF_ID, 현장, 계약사, 도면기준일
     const d = {
-      id:      row[0],
       floor:   row[1],
       floorKo: row[2],
       zone:    row[3],
       rangeS:  row[4],
       rangeE:  row[5],
-      spec:    row[6],
-      pdfId:   row[7],
+      imgId:   row[7],
       site:    row[8],
       client:  row[9],
       date:    row[10],
     };
     render(d);
   } catch(e) {
-    showError('데이터를 불러오는 중 오류가 발생했습니다. 구글 시트 공유 설정을 확인하세요.');
+    showError('데이터를 불러오는 중 오류가 발생했습니다.');
     console.error(e);
   }
 }
@@ -359,381 +297,9 @@ function render(d) {
   document.getElementById('val-floor').textContent  = d.floor;
   document.getElementById('val-zone').textContent   = `ZONE ${d.zone}`;
   document.getElementById('val-range').textContent  = `#${d.rangeS} ~ #${d.rangeE}`;
-  document.getElementById('val-spec').textContent   = d.spec;
   document.getElementById('val-hint-zone').textContent = `ZONE ${d.zone} (#${d.rangeS}~#${d.rangeE})`;
-  document.getElementById('val-drawing-title').textContent = `EG-FRAME 상세배치도 (NUMBERING) · ${d.floor}`;
-  document.getElementById('val-iframe').src = `https://drive.google.com/file/d/${d.pdfId}/preview`;
-  document.getElementById('val-info-site').<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EG-FRAME 도면뷰어</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: Arial, sans-serif; background: #F0F4F8; color: #111; }
-
-  .header {
-    background: #104987;
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .header-brand {
-    font-family: 'Arial Black', Arial, sans-serif;
-    font-weight: 900;
-    font-size: 22px;
-    color: #FFD600;
-    letter-spacing: 1px;
-  }
-  .header-site { text-align: right; }
-  .header-site .client { font-size: 12px; font-weight: 700; color: #fff; }
-  .header-site .site   { font-size: 10px; color: #AAC4E0; }
-
-  .badge-bar {
-    background: #fff;
-    border-bottom: 2px solid #E0E8F0;
-    padding: 10px 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .badge {
-    font-family: 'Arial Black', Arial, sans-serif;
-    font-weight: 900;
-    font-size: 14px;
-    padding: 5px 12px;
-    border-radius: 4px;
-    line-height: 1;
-  }
-  .badge-floor { background: #FFD600; color: #000; }
-  .badge-zone  { background: #104987; color: #FFD600; }
-  .badge-range {
-    background: #fff;
-    color: #D0021B;
-    border: 2px solid #D0021B;
-    font-size: 13px;
-  }
-  .badge-spec  {
-    margin-left: auto;
-    background: #fff;
-    color: #104987;
-    border: 2px solid #104987;
-    font-size: 12px;
-  }
-
-  .hint-banner {
-    background: #FFF8DC;
-    border-left: 4px solid #FFD600;
-    padding: 9px 14px;
-    font-size: 13px;
-    color: #555;
-  }
-  .hint-banner strong { color: #104987; }
-
-  .drawing-section {
-    margin: 14px;
-    border: 2px solid #104987;
-    border-radius: 4px;
-    overflow: hidden;
-    background: #fff;
-  }
-  .drawing-header {
-    background: #104987;
-    padding: 8px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .drawing-header span { font-size: 12px; font-weight: 700; color: #fff; }
-  .drawing-header .zh  { font-size: 11px; color: #AAC4E0; }
-  .drawing-section iframe {
-    width: 100%;
-    height: 420px;
-    border: none;
-    display: block;
-  }
-
-  .info-section {
-    margin: 0 14px 14px;
-    background: #fff;
-    border: 1.5px solid #D0D8E4;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .info-title {
-    background: #F4F7FB;
-    border-bottom: 1.5px solid #D0D8E4;
-    padding: 8px 14px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #104987;
-  }
-  .info-row {
-    display: flex;
-    border-bottom: 1px solid #EEF2F7;
-    min-height: 40px;
-    align-items: center;
-  }
-  .info-row:last-child { border-bottom: none; }
-  .info-label {
-    width: 90px;
-    min-width: 90px;
-    padding: 9px 14px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #104987;
-    background: #F9FBFD;
-    border-right: 1px solid #EEF2F7;
-  }
-  .info-value { padding: 9px 14px; font-size: 13px; color: #222; flex: 1; }
-  .info-value.hl {
-    font-family: 'Arial Black', Arial, sans-serif;
-    font-weight: 900;
-    color: #D0021B;
-    font-size: 15px;
-  }
-
-  .promo-section { margin: 0 14px 14px; }
-  .promo-label {
-    font-size: 11px;
-    font-weight: 700;
-    color: #888;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .promo-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  .promo-card {
-    background: #fff;
-    border: 1.5px solid #D0D8E4;
-    border-radius: 4px;
-    padding: 12px;
-    text-align: center;
-  }
-  .promo-card .icon { font-size: 24px; display: block; margin-bottom: 5px; }
-  .promo-card .ct   { font-size: 12px; font-weight: 700; color: #104987; display: block; margin-bottom: 3px; }
-  .promo-card .cd   { font-size: 11px; color: #777; line-height: 1.5; }
-
-  .promo-banner {
-    background: #104987;
-    border-radius: 4px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .promo-banner .bl .tag  { font-size: 10px; color: #AAC4E0; font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 3px; }
-  .promo-banner .bl .name { font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; font-size: 18px; color: #FFD600; }
-  .promo-banner .br       { text-align: right; }
-  .promo-banner .br .corp { font-size: 12px; font-weight: 700; color: #fff; display: block; }
-  .promo-banner .br .tel  { font-size: 13px; font-weight: 700; color: #FFD600; display: block; margin-top: 3px; }
-
-  .loading {
-    padding: 60px 20px;
-    text-align: center;
-    color: #888;
-    font-size: 14px;
-  }
-  .error-box {
-    margin: 30px 14px;
-    background: #fff0f0;
-    border: 2px solid #D0021B;
-    border-radius: 4px;
-    padding: 24px;
-    text-align: center;
-    color: #D0021B;
-    font-weight: 700;
-    font-size: 15px;
-    display: none;
-  }
-
-  .footer {
-    background: #1a1a1a;
-    padding: 14px 16px;
-    text-align: center;
-    margin-top: 4px;
-  }
-  .footer p { font-size: 10px; color: #666; line-height: 1.8; }
-  .footer strong { color: #AAC4E0; }
-</style>
-</head>
-<body>
-
-<div id="loadingView" class="loading">⏳ 구간 정보를 불러오는 중...</div>
-<div id="errorView" class="error-box">❌ 해당 구간을 찾을 수 없습니다.<br/><small id="errorMsg"></small></div>
-
-<div id="mainContent" style="display:none;">
-
-  <div class="header">
-    <div class="header-brand">EG-FRAME</div>
-    <div class="header-site">
-      <div class="client" id="val-client"></div>
-      <div class="site"   id="val-site"></div>
-    </div>
-  </div>
-
-  <div class="badge-bar">
-    <span class="badge badge-floor" id="val-floor"></span>
-    <span class="badge badge-zone"  id="val-zone"></span>
-    <span class="badge badge-range" id="val-range"></span>
-    <span class="badge badge-spec"  id="val-spec"></span>
-  </div>
-
-  <div class="hint-banner">
-    📍 <strong id="val-hint-zone"></strong> 구간 도면입니다 &nbsp;·&nbsp; 핀치로 확대 가능
-  </div>
-
-  <div class="drawing-section">
-    <div class="drawing-header">
-      <span id="val-drawing-title"></span>
-      <span class="zh">pinch to zoom</span>
-    </div>
-    <iframe id="val-iframe" src="" allow="autoplay" loading="lazy"></iframe>
-  </div>
-
-  <div class="info-section">
-    <div class="info-title">구간 정보</div>
-    <div class="info-row">
-      <div class="info-label">현장</div>
-      <div class="info-value" id="val-info-site"></div>
-    </div>
-    <div class="info-row">
-      <div class="info-label">층</div>
-      <div class="info-value" id="val-info-floor"></div>
-    </div>
-    <div class="info-row">
-      <div class="info-label">ZONE</div>
-      <div class="info-value hl" id="val-info-zone"></div>
-    </div>
-    <div class="info-row">
-      <div class="info-label">부재 범위</div>
-      <div class="info-value" id="val-info-range"></div>
-    </div>
-    <div class="info-row">
-      <div class="info-label">규격</div>
-      <div class="info-value" id="val-info-spec"></div>
-    </div>
-    <div class="info-row">
-      <div class="info-label">도면기준일</div>
-      <div class="info-value" id="val-info-date"></div>
-    </div>
-  </div>
-
-  <div class="promo-section">
-    <div class="promo-label">EG-FRAME 소개</div>
-    <div class="promo-cards">
-      <div class="promo-card">
-        <span class="icon">🏗️</span>
-        <span class="ct">탑다운 전용</span>
-        <span class="cd">역타공법 슬라브-흙막이 연결 최적화 설계</span>
-      </div>
-      <div class="promo-card">
-        <span class="icon">🔩</span>
-        <span class="ct">맞춤 제작</span>
-        <span class="cd">현장별 토압 조건에 따른 규격 커스터마이징</span>
-      </div>
-      <div class="promo-card">
-        <span class="icon">📐</span>
-        <span class="ct">구조 검토</span>
-        <span class="cd">적용 전 구조 안전성 컨설팅 제공</span>
-      </div>
-      <div class="promo-card">
-        <span class="icon">🚚</span>
-        <span class="ct">현장 납품</span>
-        <span class="cd">제작부터 납품까지 일괄 서비스</span>
-      </div>
-    </div>
-    <div class="promo-banner">
-      <div class="bl">
-        <span class="tag">MANUFACTURED BY</span>
-        <span class="name">EG-FRAME</span>
-      </div>
-      <div class="br">
-        <span class="corp">(주) 도시씨앤디</span>
-        <span class="tel">02-6946-8500</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <p>
-      <strong>(주) 도시씨앤디</strong> · EG-FRAME 컨설팅 / 제작 / 판매<br/>
-      본 도면은 저작권법에 의해 보호됩니다. 무단 복제 및 배포를 금합니다.<br/>
-      <span id="val-footer-date"></span>
-    </p>
-  </div>
-
-</div>
-
-<script>
-const SHEET_ID = '1N_xNNqQEnE3IeWBcA_kxCGvdMxQPOJ2KUu8httQdsp0';
-const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=data`;
-
-function getParam(name) {
-  return new URL(window.location.href).searchParams.get(name);
-}
-
-async function loadData() {
-  const zoneId = getParam('id');
-  if (!zoneId) {
-    showError('URL에 구간 ID가 없습니다. (예: ?id=EGFB4-ZONE1)');
-    return;
-  }
-  try {
-    const res = await fetch(SHEET_URL);
-    const text = await res.text();
-    const rows = parseCSV(text);
-    const data = rows.slice(1);
-    const row = data.find(r => r[0].trim() === zoneId.trim());
-    if (!row) {
-      showError(`ID "${zoneId}" 에 해당하는 구간을 시트에서 찾을 수 없습니다.`);
-      return;
-    }
-    // 컬럼: id, 층, 층_한글, ZONE, RANGE_시작, RANGE_끝, 규격, PDF_ID, 현장, 계약사, 도면기준일
-    const d = {
-      id:      row[0],
-      floor:   row[1],
-      floorKo: row[2],
-      zone:    row[3],
-      rangeS:  row[4],
-      rangeE:  row[5],
-      spec:    row[6],
-      pdfId:   row[7],
-      site:    row[8],
-      client:  row[9],
-      date:    row[10],
-    };
-    render(d);
-  } catch(e) {
-    showError('데이터를 불러오는 중 오류가 발생했습니다. 구글 시트 공유 설정을 확인하세요.');
-    console.error(e);
-  }
-}
-
-function render(d) {
-  document.getElementById('val-client').textContent = d.client;
-  document.getElementById('val-site').textContent   = d.site;
-  document.getElementById('val-floor').textContent  = d.floor;
-  document.getElementById('val-zone').textContent   = `ZONE ${d.zone}`;
-  document.getElementById('val-range').textContent  = `#${d.rangeS} ~ #${d.rangeE}`;
-  document.getElementById('val-spec').textContent   = d.spec;
-  document.getElementById('val-hint-zone').textContent = `ZONE ${d.zone} (#${d.rangeS}~#${d.rangeE})`;
-  document.getElementById('val-drawing-title').textContent = `EG-FRAME 상세배치도 (NUMBERING) · ${d.floor}`;
-  document.getElementById('val-iframe').src = `https://drive.google.com/file/d/${d.pdfId}/preview`;
-  document.getElementById('val-info-site').textContent  = d.site;
-  document.getElementById('val-info-floor').textContent = `${d.floor} (${d.floorKo})`;
-  document.getElementById('val-info-zone').textContent  = `ZONE ${d.zone}`;
-  document.getElementById('val-info-range').textContent = `#${d.rangeS} ~ #${d.rangeE}`;
-  document.getElementById('val-info-spec').textContent  = d.spec;
-  document.getElementById('val-info-date').textContent  = d.date;
+  document.getElementById('val-img').src =
+    `https://drive.google.com/uc?export=view&id=${d.imgId}`;
   document.getElementById('val-footer-date').textContent = `QR 작업일 ${d.date}`;
   document.title = `EG-FRAME · ZONE ${d.zone} (${d.floor})`;
   document.getElementById('loadingView').style.display = 'none';

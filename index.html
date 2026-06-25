@@ -3,104 +3,49 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EG-FRAME 도면뷰어</title>
+<title>EG-Frame 도면뷰어</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, sans-serif; background: #F0F4F8; color: #111; }
 
-  .header {
-    background: #104987;
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  .header-brand {
-    font-family: 'Arial Black', Arial, sans-serif;
-    font-weight: 900;
-    font-size: 22px;
-    color: #FFD600;
-    letter-spacing: 1px;
-    flex-shrink: 0;
-  }
+  .header { background: #104987; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .brand { font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; font-size: 22px; color: #FFD600; letter-spacing: 1px; flex-shrink: 0; }
   .header-site { text-align: right; min-width: 0; }
   .header-site .client { font-size: 12px; font-weight: 700; color: #fff; }
   .header-site .site { font-size: 10px; color: #AAC4E0; line-height: 1.4; word-break: keep-all; }
 
-  .badge-bar {
-    background: #fff;
-    border-bottom: 2px solid #E0E8F0;
-    padding: 10px 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .badge {
-    font-family: 'Arial Black', Arial, sans-serif;
-    font-weight: 900;
-    font-size: 14px;
-    padding: 5px 12px;
-    border-radius: 4px;
-    line-height: 1;
-  }
+  .badge-bar { background: #fff; border-bottom: 2px solid #E0E8F0; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .badge-row { display: flex; gap: 8px; align-items: center; }
+  .badge { font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; font-size: 14px; padding: 5px 12px; border-radius: 4px; line-height: 1; }
   .badge-floor { background: #FFD600; color: #000; }
   .badge-zone  { background: #104987; color: #FFD600; }
   .badge-range { background: #fff; color: #D0021B; border: 2px solid #D0021B; font-size: 13px; }
+  .date-block { text-align: right; }
+  .date-label { font-size: 9px; color: #bbb; font-weight: 400; display: block; }
+  .date-value { font-size: 10px; color: #bbb; font-weight: 300; display: block; }
 
-  .hint-banner {
-    background: #FFF8DC;
-    border-left: 4px solid #FFD600;
-    padding: 9px 14px;
-    font-size: 13px;
-    color: #555;
-  }
+  .hint-banner { background: #FFF8DC; border-left: 4px solid #FFD600; padding: 9px 14px; font-size: 13px; color: #555; }
   .hint-banner strong { color: #104987; }
 
-  .drawing-section {
-    margin: 14px;
-    border: 2px solid #104987;
-    border-radius: 4px;
-    overflow: hidden;
-    background: #fff;
-  }
-  .drawing-header {
-    background: #104987;
-    padding: 8px 14px;
-  }
+  .drawing-section { margin: 14px; border: 2px solid #104987; border-radius: 4px; overflow: hidden; background: #fff; }
+  .drawing-header { background: #104987; padding: 8px 14px; }
   .drawing-header span { font-size: 12px; font-weight: 700; color: #fff; }
-
-  .drawing-img-wrap {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    background: #f8f8f8;
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .drawing-img-wrap img {
-    width: 100%;
-    height: auto;
-    display: block;
-    touch-action: pan-x pan-y pinch-zoom;
-  }
+  .drawing-img-wrap { overflow: auto; -webkit-overflow-scrolling: touch; background: #f8f8f8; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+  .drawing-img-wrap img { width: 100%; height: auto; display: block; touch-action: pan-x pan-y pinch-zoom; }
   .img-loading { padding: 40px; text-align: center; color: #aaa; font-size: 13px; }
 
   .promo-section { margin: 0 14px 14px; }
-  .promo-label { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .promo-label { font-size: 12px; font-weight: 900; color: #104987; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; border-bottom: 2px solid #FFD600; padding-bottom: 4px; display: inline-block; }
   .promo-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
   .promo-card { background: #fff; border: 1.5px solid #D0D8E4; border-radius: 4px; padding: 12px; text-align: center; }
-  .promo-card .icon { font-size: 24px; display: block; margin-bottom: 5px; }
-  .promo-card .ct { font-size: 12px; font-weight: 700; color: #104987; display: block; margin-bottom: 3px; }
+  .promo-card svg { display: block; margin: 0 auto 4px; }
+  .promo-card .ct { font-size: 12px; font-weight: 700; color: #104987; display: block; margin-bottom: 3px; margin-top: 4px; }
   .promo-card .cd { font-size: 11px; color: #777; line-height: 1.5; }
 
-  .promo-banner { background: #104987; border-radius: 4px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
-  .promo-banner .bl .tag { font-size: 10px; color: #AAC4E0; font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 3px; }
-  .promo-banner .bl .name { font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; font-size: 18px; color: #FFD600; }
+  .promo-banner { background: #104987; border-radius: 4px; padding: 14px 16px; display: flex; align-items: center; justify-content: flex-end; }
   .promo-banner .br { text-align: right; }
   .promo-banner .br .corp { font-size: 12px; font-weight: 700; color: #fff; display: block; }
-  .promo-banner .br .tel { font-size: 13px; font-weight: 700; color: #FFD600; display: block; margin-top: 3px; }
+  .promo-banner .br .tel { font-size: 13px; font-weight: 700; color: #fff; display: block; margin-top: 3px; }
 
   .loading { padding: 60px 20px; text-align: center; color: #888; font-size: 14px; }
   .error-box { margin: 30px 14px; background: #fff0f0; border: 2px solid #D0021B; border-radius: 4px; padding: 24px; text-align: center; color: #D0021B; font-weight: 700; font-size: 15px; display: none; }
@@ -108,6 +53,7 @@
   .footer { background: #1a1a1a; padding: 14px 16px; text-align: center; margin-top: 4px; }
   .footer p { font-size: 10px; color: #666; line-height: 1.8; }
   .footer strong { color: #AAC4E0; }
+  .patent { font-size: 9px; color: #555; margin-top: 6px; line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -117,7 +63,7 @@
 
 <div id="mainContent" style="display:none;">
   <div class="header">
-    <div class="header-brand">EG-FRAME</div>
+    <div class="brand">EG.FRAME</div>
     <div class="header-site">
       <div class="client" id="val-client"></div>
       <div class="site" id="val-site"></div>
@@ -125,9 +71,15 @@
   </div>
 
   <div class="badge-bar">
-    <span class="badge badge-floor" id="val-floor"></span>
-    <span class="badge badge-zone" id="val-zone"></span>
-    <span class="badge badge-range" id="val-range"></span>
+    <div class="badge-row">
+      <span class="badge badge-floor" id="val-floor"></span>
+      <span class="badge badge-zone"  id="val-zone"></span>
+      <span class="badge badge-range" id="val-range"></span>
+    </div>
+    <div class="date-block">
+      <span class="date-label">도면기준일</span>
+      <span class="date-value" id="val-date"></span>
+    </div>
   </div>
 
   <div class="hint-banner">
@@ -136,7 +88,7 @@
 
   <div class="drawing-section">
     <div class="drawing-header">
-      <span>EG-FRAME 층별상세배치도</span>
+      <span>EG-Frame 층별상세배치도</span>
     </div>
     <div class="drawing-img-wrap" id="imgWrap">
       <div class="img-loading">🖼️ 도면 로딩 중...</div>
@@ -144,34 +96,72 @@
   </div>
 
   <div class="promo-section">
-    <div class="promo-label">EG-FRAME 소개</div>
+    <div class="promo-label">EG-Frame 소개</div>
     <div class="promo-cards">
       <div class="promo-card">
-        <span class="icon">🏗️</span>
-        <span class="ct">탑다운 전용</span>
-        <span class="cd">역타공법 슬라브-흙막이 연결 최적화 설계</span>
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="40" height="14" fill="#D6EAF8" rx="2"/>
+          <rect x="0" y="13" width="40" height="3" fill="#7D6608" opacity="0.4"/>
+          <rect x="8" y="16" width="24" height="20" fill="#7B4B1A" rx="1"/>
+          <rect x="7" y="13" width="3" height="23" fill="#566573" rx="1"/>
+          <rect x="30" y="13" width="3" height="23" fill="#566573" rx="1"/>
+          <rect x="8" y="17" width="2" height="2" fill="#AAB7B8"/>
+          <rect x="8" y="23" width="2" height="2" fill="#AAB7B8"/>
+          <rect x="8" y="29" width="2" height="2" fill="#AAB7B8"/>
+          <rect x="30" y="17" width="2" height="2" fill="#AAB7B8"/>
+          <rect x="30" y="23" width="2" height="2" fill="#AAB7B8"/>
+          <rect x="30" y="29" width="2" height="2" fill="#AAB7B8"/>
+          <line x1="20" y1="18" x2="20" y2="32" stroke="#FFD600" stroke-width="2" stroke-linecap="round"/>
+          <polygon points="20,36 17,30 23,30" fill="#FFD600"/>
+          <rect x="0" y="13" width="7" height="23" fill="#A04000" opacity="0.3"/>
+          <rect x="33" y="13" width="7" height="23" fill="#A04000" opacity="0.3"/>
+        </svg>
+        <span class="ct">탑다운 특화</span>
+        <span class="cd">지하 굴착 역타공법 슬라브-흙막이 연결</span>
       </div>
       <div class="promo-card">
-        <span class="icon">🔩</span>
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="18" width="32" height="6" rx="2" fill="#566573"/>
+          <rect x="10" y="10" width="4" height="20" rx="1" fill="#104987"/>
+          <rect x="26" y="10" width="4" height="20" rx="1" fill="#104987"/>
+          <rect x="8" y="22" width="24" height="3" rx="1" fill="#FFD600" opacity="0.8"/>
+          <circle cx="12" cy="21" r="2" fill="#AAB7B8"/>
+          <circle cx="20" cy="21" r="2" fill="#AAB7B8"/>
+          <circle cx="28" cy="21" r="2" fill="#AAB7B8"/>
+        </svg>
         <span class="ct">맞춤 제작</span>
-        <span class="cd">현장별 토압 조건에 따른 규격 커스터마이징</span>
+        <span class="cd">현장별 토압 조건 맞춤 규격</span>
       </div>
       <div class="promo-card">
-        <span class="icon">📐</span>
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="28" width="28" height="4" rx="1" fill="#566573"/>
+          <rect x="8" y="10" width="3" height="22" rx="1" fill="#104987"/>
+          <rect x="18" y="14" width="3" height="18" rx="1" fill="#104987"/>
+          <rect x="28" y="8" width="3" height="24" rx="1" fill="#104987"/>
+          <polyline points="9,18 19,14 29,10" stroke="#FFD600" stroke-width="1.5" stroke-dasharray="2,2" fill="none"/>
+        </svg>
         <span class="ct">구조 검토</span>
-        <span class="cd">적용 전 구조 안전성 컨설팅 제공</span>
+        <span class="cd">적용 전 구조 안전성 컨설팅</span>
       </div>
       <div class="promo-card">
-        <span class="icon">🚚</span>
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="22" width="28" height="12" rx="2" fill="#566573"/>
+          <rect x="6" y="24" width="24" height="8" rx="1" fill="#7D8C93"/>
+          <rect x="30" y="26" width="6" height="5" rx="1" fill="#566573"/>
+          <circle cx="10" cy="34" r="3" fill="#2C3E50"/>
+          <circle cx="10" cy="34" r="1.5" fill="#AAB7B8"/>
+          <circle cx="22" cy="34" r="3" fill="#2C3E50"/>
+          <circle cx="22" cy="34" r="1.5" fill="#AAB7B8"/>
+          <rect x="8" y="16" width="16" height="8" rx="1" fill="#104987" opacity="0.7"/>
+          <line x1="10" y1="18" x2="22" y2="18" stroke="#FFD600" stroke-width="1"/>
+          <line x1="10" y1="21" x2="18" y2="21" stroke="#FFD600" stroke-width="1"/>
+        </svg>
         <span class="ct">현장 납품</span>
         <span class="cd">제작부터 납품까지 일괄 서비스</span>
       </div>
     </div>
+
     <div class="promo-banner">
-      <div class="bl">
-        <span class="tag">MANUFACTURED BY</span>
-        <span class="name">EG-FRAME</span>
-      </div>
       <div class="br">
         <span class="corp">(주) 도시씨앤디</span>
         <span class="tel">02-6946-8500</span>
@@ -181,10 +171,10 @@
 
   <div class="footer">
     <p>
-      <strong>(주) 도시씨앤디</strong> · EG-FRAME 컨설팅 / 제작 / 판매<br/>
-      본 도면은 저작권법에 의해 보호됩니다. 무단 복제 및 배포를 금합니다.<br/>
-      <span id="val-footer-date"></span>
+      <strong>(주) 도시씨앤디</strong> · EG-Frame 컨설팅 / 제작 / 판매<br/>
+      본 도면은 저작권법에 의해 보호됩니다. 무단 복제 및 배포를 금합니다.
     </p>
+    <p class="patent">EG-Frame은 신기술 제765호와 특허 제0938918호 및 특허 제1034853호로써<br/>(주)도시씨앤디가 제작 및 납품에 대한 권리를 보유하고 있습니다.</p>
   </div>
 </div>
 
@@ -226,7 +216,6 @@ async function loadData() {
 
 function loadImage(imgId) {
   const wrap = document.getElementById('imgWrap');
-  // 방법 1: lh3 직접 링크
   const urls = [
     `https://lh3.googleusercontent.com/d/${imgId}`,
     `https://drive.google.com/uc?export=view&id=${imgId}`,
@@ -255,8 +244,8 @@ function render(d) {
   document.getElementById('val-zone').textContent   = `ZONE ${d.zone}`;
   document.getElementById('val-range').textContent  = `#${d.rangeS} ~ #${d.rangeE}`;
   document.getElementById('val-hint-zone').textContent = `ZONE ${d.zone} (#${d.rangeS}~#${d.rangeE})`;
-  document.getElementById('val-footer-date').textContent = `QR 작업일 ${d.date}`;
-  document.title = `EG-FRAME · ZONE ${d.zone} (${d.floor})`;
+  document.getElementById('val-date').textContent   = d.date;
+  document.title = `EG-Frame · ZONE ${d.zone} (${d.floor})`;
   document.getElementById('loadingView').style.display = 'none';
   document.getElementById('mainContent').style.display = 'block';
   loadImage(d.imgId);

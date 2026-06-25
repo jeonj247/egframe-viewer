@@ -25,17 +25,8 @@
     flex-shrink: 0;
   }
   .header-site { text-align: right; min-width: 0; }
-  .header-site .client {
-    font-size: 12px;
-    font-weight: 700;
-    color: #fff;
-  }
-  .header-site .site {
-    font-size: 10px;
-    color: #AAC4E0;
-    line-height: 1.4;
-    word-break: keep-all;
-  }
+  .header-site .client { font-size: 12px; font-weight: 700; color: #fff; }
+  .header-site .site { font-size: 10px; color: #AAC4E0; line-height: 1.4; word-break: keep-all; }
 
   .badge-bar {
     background: #fff;
@@ -55,12 +46,7 @@
   }
   .badge-floor { background: #FFD600; color: #000; }
   .badge-zone  { background: #104987; color: #FFD600; }
-  .badge-range {
-    background: #fff;
-    color: #D0021B;
-    border: 2px solid #D0021B;
-    font-size: 13px;
-  }
+  .badge-range { background: #fff; color: #D0021B; border: 2px solid #D0021B; font-size: 13px; }
 
   .hint-banner {
     background: #FFF8DC;
@@ -82,15 +68,16 @@
     background: #104987;
     padding: 8px 14px;
   }
-  .drawing-header span {
-    font-size: 12px;
-    font-weight: 700;
-    color: #fff;
-  }
+  .drawing-header span { font-size: 12px; font-weight: 700; color: #fff; }
+
   .drawing-img-wrap {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     background: #f8f8f8;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .drawing-img-wrap img {
     width: 100%;
@@ -98,72 +85,27 @@
     display: block;
     touch-action: pan-x pan-y pinch-zoom;
   }
+  .img-loading { padding: 40px; text-align: center; color: #aaa; font-size: 13px; }
 
   .promo-section { margin: 0 14px 14px; }
-  .promo-label {
-    font-size: 11px;
-    font-weight: 700;
-    color: #888;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .promo-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  .promo-card {
-    background: #fff;
-    border: 1.5px solid #D0D8E4;
-    border-radius: 4px;
-    padding: 12px;
-    text-align: center;
-  }
+  .promo-label { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .promo-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .promo-card { background: #fff; border: 1.5px solid #D0D8E4; border-radius: 4px; padding: 12px; text-align: center; }
   .promo-card .icon { font-size: 24px; display: block; margin-bottom: 5px; }
-  .promo-card .ct   { font-size: 12px; font-weight: 700; color: #104987; display: block; margin-bottom: 3px; }
-  .promo-card .cd   { font-size: 11px; color: #777; line-height: 1.5; }
+  .promo-card .ct { font-size: 12px; font-weight: 700; color: #104987; display: block; margin-bottom: 3px; }
+  .promo-card .cd { font-size: 11px; color: #777; line-height: 1.5; }
 
-  .promo-banner {
-    background: #104987;
-    border-radius: 4px;
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .promo-banner .bl .tag  { font-size: 10px; color: #AAC4E0; font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 3px; }
+  .promo-banner { background: #104987; border-radius: 4px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
+  .promo-banner .bl .tag { font-size: 10px; color: #AAC4E0; font-weight: 700; letter-spacing: 1px; display: block; margin-bottom: 3px; }
   .promo-banner .bl .name { font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; font-size: 18px; color: #FFD600; }
-  .promo-banner .br       { text-align: right; }
+  .promo-banner .br { text-align: right; }
   .promo-banner .br .corp { font-size: 12px; font-weight: 700; color: #fff; display: block; }
-  .promo-banner .br .tel  { font-size: 13px; font-weight: 700; color: #FFD600; display: block; margin-top: 3px; }
+  .promo-banner .br .tel { font-size: 13px; font-weight: 700; color: #FFD600; display: block; margin-top: 3px; }
 
-  .loading {
-    padding: 60px 20px;
-    text-align: center;
-    color: #888;
-    font-size: 14px;
-  }
-  .error-box {
-    margin: 30px 14px;
-    background: #fff0f0;
-    border: 2px solid #D0021B;
-    border-radius: 4px;
-    padding: 24px;
-    text-align: center;
-    color: #D0021B;
-    font-weight: 700;
-    font-size: 15px;
-    display: none;
-  }
+  .loading { padding: 60px 20px; text-align: center; color: #888; font-size: 14px; }
+  .error-box { margin: 30px 14px; background: #fff0f0; border: 2px solid #D0021B; border-radius: 4px; padding: 24px; text-align: center; color: #D0021B; font-weight: 700; font-size: 15px; display: none; }
 
-  .footer {
-    background: #1a1a1a;
-    padding: 14px 16px;
-    text-align: center;
-    margin-top: 4px;
-  }
+  .footer { background: #1a1a1a; padding: 14px 16px; text-align: center; margin-top: 4px; }
   .footer p { font-size: 10px; color: #666; line-height: 1.8; }
   .footer strong { color: #AAC4E0; }
 </style>
@@ -174,18 +116,17 @@
 <div id="errorView" class="error-box">❌ 해당 구간을 찾을 수 없습니다.<br/><small id="errorMsg"></small></div>
 
 <div id="mainContent" style="display:none;">
-
   <div class="header">
     <div class="header-brand">EG-FRAME</div>
     <div class="header-site">
       <div class="client" id="val-client"></div>
-      <div class="site"   id="val-site"></div>
+      <div class="site" id="val-site"></div>
     </div>
   </div>
 
   <div class="badge-bar">
     <span class="badge badge-floor" id="val-floor"></span>
-    <span class="badge badge-zone"  id="val-zone"></span>
+    <span class="badge badge-zone" id="val-zone"></span>
     <span class="badge badge-range" id="val-range"></span>
   </div>
 
@@ -197,9 +138,8 @@
     <div class="drawing-header">
       <span>EG-FRAME 층별상세배치도</span>
     </div>
-    <div class="drawing-img-wrap">
-      <img id="val-img" src="" alt="EG-FRAME 배치도"
-        onerror="this.parentElement.innerHTML='<p style=padding:40px;text-align:center;color:#aaa>도면 이미지를 불러올 수 없습니다</p>'"/>
+    <div class="drawing-img-wrap" id="imgWrap">
+      <div class="img-loading">🖼️ 도면 로딩 중...</div>
     </div>
   </div>
 
@@ -246,7 +186,6 @@
       <span id="val-footer-date"></span>
     </p>
   </div>
-
 </div>
 
 <script>
@@ -259,20 +198,14 @@ function getParam(name) {
 
 async function loadData() {
   const zoneId = getParam('id');
-  if (!zoneId) {
-    showError('URL에 구간 ID가 없습니다. (예: ?id=EGFB4-ZONE1)');
-    return;
-  }
+  if (!zoneId) { showError('URL에 구간 ID가 없습니다.'); return; }
   try {
     const res = await fetch(SHEET_URL);
     const text = await res.text();
     const rows = parseCSV(text);
     const data = rows.slice(1);
     const row = data.find(r => r[0].trim() === zoneId.trim());
-    if (!row) {
-      showError(`ID "${zoneId}" 에 해당하는 구간을 시트에서 찾을 수 없습니다.`);
-      return;
-    }
+    if (!row) { showError(`ID "${zoneId}" 를 시트에서 찾을 수 없습니다.`); return; }
     const d = {
       floor:   row[1],
       floorKo: row[2],
@@ -291,6 +224,30 @@ async function loadData() {
   }
 }
 
+function loadImage(imgId) {
+  const wrap = document.getElementById('imgWrap');
+  // 방법 1: lh3 직접 링크
+  const urls = [
+    `https://lh3.googleusercontent.com/d/${imgId}`,
+    `https://drive.google.com/uc?export=view&id=${imgId}`,
+    `https://drive.google.com/thumbnail?id=${imgId}&sz=w2000`,
+  ];
+  let idx = 0;
+  function tryNext() {
+    if (idx >= urls.length) {
+      wrap.innerHTML = '<p style="padding:40px;text-align:center;color:#aaa">도면 이미지를 불러올 수 없습니다.<br/>구글 드라이브 공유 설정을 확인하세요.</p>';
+      return;
+    }
+    const img = new Image();
+    img.style.cssText = 'width:100%;height:auto;display:block;touch-action:pan-x pan-y pinch-zoom;';
+    img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
+    img.onerror = () => { idx++; tryNext(); };
+    img.src = urls[idx];
+    idx++;
+  }
+  tryNext();
+}
+
 function render(d) {
   document.getElementById('val-client').textContent = d.client;
   document.getElementById('val-site').textContent   = d.site;
@@ -298,12 +255,11 @@ function render(d) {
   document.getElementById('val-zone').textContent   = `ZONE ${d.zone}`;
   document.getElementById('val-range').textContent  = `#${d.rangeS} ~ #${d.rangeE}`;
   document.getElementById('val-hint-zone').textContent = `ZONE ${d.zone} (#${d.rangeS}~#${d.rangeE})`;
-  document.getElementById('val-img').src =
-    `https://drive.google.com/uc?export=view&id=${d.imgId}`;
   document.getElementById('val-footer-date').textContent = `QR 작업일 ${d.date}`;
   document.title = `EG-FRAME · ZONE ${d.zone} (${d.floor})`;
   document.getElementById('loadingView').style.display = 'none';
   document.getElementById('mainContent').style.display = 'block';
+  loadImage(d.imgId);
 }
 
 function showError(msg) {
